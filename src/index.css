@@ -71,4 +71,6 @@ body{
       8px 27px 8px rgba(0, 0, 0, 0.5),
       8px 28px 35px rgba(0, 0, 0, 0.9);
 }
-
+#stats{
+    visibility: hidden;
+}

@@ -13,12 +13,13 @@ app.use(cors());
 app.use("/public", express.static(`./public`));
 
 app.use("/", (req,res, next)=>{ //responsible for rerouting using the short url 
-  if(req. _parsedUrl.path === "/" || req. _parsedUrl.path === "/makeUrl"){next()}
+  if(req. _parsedUrl.path === "/" || req. _parsedUrl.path === "/makeUrl" || req. _parsedUrl.path === "/status"){next()}
   else{
     try {
       const requestEnd = (req. _parsedUrl.path);
       const longURL = dataBaseUse.getLongUrlFromStorage(requestEnd);
-      res.redirect(longURL);
+      const slicedUrl = longURL.slice(1, longURL.length-1)
+      res.redirect(slicedUrl);
     } catch (error) {
       res.send(error);
     }
@@ -39,6 +40,16 @@ app.get("/makeurl", function(req,res){ //responsible for creating short url and 
   } catch (error) {
     res.send(error)
   }
+})
+
+app.get("/status", (req,res)=>{
+  const shortUrl = JSON.stringify(req.headers.shorturl);
+  const slicedUrl= (shortUrl.slice(23,shortUrl.length-1));
+  const longurl = dataBaseUse.getLongUrlFromStorage(`/${slicedUrl}`);
+  const date = dataBaseUse.getDateFromStorage(slicedUrl);
+  const counter = dataBaseUse.getCounterFromStorage(slicedUrl);
+  const data = {longurl, date , counter};
+  res.send(data);
 })
 
 module.exports = app;

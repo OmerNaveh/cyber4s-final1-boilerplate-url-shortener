@@ -22,22 +22,15 @@ class DataBase {
         return LongUrl;
     }
     getDateFromStorage(shortUrl){
-        fs.readFile("./DB.json", (err, data)=>{
-            if(err){
-                return(err);
-            }
+            const data = fs.readFileSync("./DB.json")
             const fileContent = JSON.parse(data);
             return fileContent[shortUrl].date;
-        })    
+            
     }
     getCounterFromStorage(shortUrl){
-        fs.readFile("./DB.json", (err, data)=>{
-            if(err){
-                return(err);
-            }
+        const data = fs.readFileSync("./DB.json")
             const fileContent = JSON.parse(data);
             return fileContent[shortUrl].counter;
-        })    
     }
 }
 module.exports = DataBase;
