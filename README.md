@@ -1,3 +1,11 @@
+# Omer Naveh URL Shortener Project
+
+- This repo is for completing a Cyber4s Project 
+- Instructions are written below...
+
+
+
+
 # ![Scale-Up Velocity](./readme-files/logo-main.png) Final 1 - URL shortner 📎
 
 In this project you will create your own [URL shortener](https://en.wikipedia.org/wiki/URL_shortening)!
