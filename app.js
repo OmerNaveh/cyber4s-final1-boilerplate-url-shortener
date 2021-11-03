@@ -1,39 +1,44 @@
+const DataBase = require("./DataBase");
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const app = express();
-const fs= require('fs')
+const port = process.env.PORT || 8080;
+const dataBaseUse = new DataBase;
 const shortid = require('shortid'); //generates random id
-// shortid.generate() --> usage
 const homeUrl = 'http://localhost:8080';
 
 app.use(cors());
 
 app.use("/public", express.static(`./public`));
 
-app.use(`/`, (req,res, next)=>{ //responsible for rerouting using the short url 
-  if(req. _parsedUrl.path === "/"){next()}
-    else{
-      try{
-        const longurl = JSON.parse(fs.readFileSync(`./DB/${req. _parsedUrl.path}.txt`));
-        res.redirect(longurl); //send user to original long url
-      }
-      catch(error){
-        next();
-      }
+app.use("/", (req,res, next)=>{ //responsible for rerouting using the short url 
+  if(req. _parsedUrl.path === "/" || req. _parsedUrl.path === "/makeUrl"){next()}
+  else{
+    try {
+      const requestEnd = (req. _parsedUrl.path);
+      const longURL = dataBaseUse.getLongUrlFromStorage(requestEnd);
+      res.redirect(longURL);
+    } catch (error) {
+      res.send(error);
     }
-}) 
-
-app.get("/", (req, res, next) => { //load home page
-  res.sendFile(__dirname + "/views/index.html");
-});
-
-app.get('/makeUrl', (req,res, next)=>{ //responsible for creating short url and adding to DB
-  const longUrl = JSON.stringify(req.headers.longurl);
-  const shortUrl = shortid.generate();
-  fs.writeFileSync(`./DB/${shortUrl}.txt`, longUrl);
-  res.send(`${homeUrl}/${shortUrl}`)
+  }
 })
 
+app.get("/", (req, res, next) => { //load home page
+  res.sendFile(__dirname + "/src/index.html");
+});
 
+
+app.get("/makeurl", function(req,res){ //responsible for creating short url and adding to DB
+  try {
+    const longUrl = JSON.stringify(req.headers.longurl);
+    const shortUrl = shortid.generate();
+    dataBaseUse.storeUrlRelation(longUrl, shortUrl);
+    res.send(homeUrl + "/" + shortUrl);
+  } catch (error) {
+    res.send(error)
+  }
+})
 
 module.exports = app;

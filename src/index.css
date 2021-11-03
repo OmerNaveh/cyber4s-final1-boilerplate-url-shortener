@@ -1,0 +1,74 @@
+html{
+    height: 100%;
+}
+body{
+    background-image: url("https://i.pinimg.com/originals/bb/61/8d/bb618db7d825e2e03c8d86f781a65e06.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 98%;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: 20% 40% 20% 20%;
+}
+#title{
+    grid-column: 2/5;
+    grid-row: 1;
+    text-align: center;
+    font-size: 35px;
+    color: cadetblue;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#inputsect{
+    grid-column: 2/5;
+    grid-row: 2/3;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(5,1fr);
+    padding: 1rem;
+}
+#userInput{
+    grid-column: 2/5;
+    grid-row: 1/2;
+    text-align: center;
+}
+#inputbtn{
+    grid-column: 3;
+    grid-row: 4;
+}
+#inputbtn:hover{
+    background-color: chartreuse;
+    cursor: pointer;
+}
+#output{
+    grid-column: 2/5;
+    grid-row: 3;
+    text-align: center;
+}
+#urloutput{
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    text-shadow: 
+      -1px -1px 1px #efede3, 
+      0px 1px 0 #2e2e2e, 
+      0px 2px 0 #2c2c2c, 
+      0px 3px 0 #2a2a2a, 
+      0px 4px 0 #282828, 
+      0px 5px 0 #262626, 
+      0px 6px 0 #242424, 
+      0px 7px 0 #222, 
+      0px 8px 0 #202020, 
+      0px 9px 0 #1e1e1e, 
+      0px 10px 0 #1c1c1c, 
+      0px 11px 0 #1a1a1a, 
+      0px 12px 0 #181818, 
+      0px 13px 0 #161616, 
+      0px 14px 0 #141414, 
+      0px 15px 0 #121212,
+      2px 20px 5px rgba(0, 0, 0, 0.9),
+      5px 23px 5px rgba(0, 0, 0, 0.3),
+      8px 27px 8px rgba(0, 0, 0, 0.5),
+      8px 28px 35px rgba(0, 0, 0, 0.9);
+}
+
