@@ -35,20 +35,19 @@ app.get("/makeurl", function(req,res){ //responsible for creating short url and 
   try {
     const longUrl = JSON.stringify(req.headers.longurl);
     const customShort = req.headers.shorturl;
-    if(!customShort == undefined){
-      console.log('why am i here');
+    if(customShort){
       if(dataBaseUse.isDuplicate(customShort)){
         throw "url taken already"
       }
       else{
         dataBaseUse.storeUrlRelation(longUrl, customShort);
         res.send(homeUrl + "/" + customShort)
+        return
       }
     }
     
     if(dataBaseUse.isExistLong(longUrl)){
       const existingUrl = dataBaseUse.isExistLong(longUrl)
-      console.log(homeUrl + "/" + existingUrl);
       res.send(homeUrl + "/" + existingUrl);
     }
     else{
@@ -62,13 +61,18 @@ app.get("/makeurl", function(req,res){ //responsible for creating short url and 
 })
 
 app.get("/status", (req,res)=>{
-  const shortUrl = JSON.stringify(req.headers.shorturl);
-  const slicedUrl= (shortUrl.slice(23,shortUrl.length-1));
-  const longurl = dataBaseUse.getLongUrlFromStorage(`/${slicedUrl}`);
-  const date = dataBaseUse.getDateFromStorage(slicedUrl);
-  const counter = dataBaseUse.getCounterFromStorage(slicedUrl);
-  const data = {longurl, date , counter};
-  res.send(data);
+  try {
+    const shortUrl = JSON.stringify(req.headers.shorturl);
+    const slicedUrl= (shortUrl.slice(23,shortUrl.length-1));
+    const longurl = dataBaseUse.getLongUrlFromStorage(`/${slicedUrl}`);
+    const date = dataBaseUse.getDateFromStorage(slicedUrl);
+    const counter = dataBaseUse.getCounterFromStorage(slicedUrl);
+    const data = {longurl, date , counter};
+    res.send(data);
+    
+  } catch (error) {
+    res.send(error)
+  }
 })
 
 module.exports = app;
