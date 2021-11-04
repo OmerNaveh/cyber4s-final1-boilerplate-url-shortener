@@ -34,9 +34,28 @@ app.get("/", (req, res, next) => { //load home page
 app.get("/makeurl", function(req,res){ //responsible for creating short url and adding to DB
   try {
     const longUrl = JSON.stringify(req.headers.longurl);
+    const customShort = req.headers.shorturl;
+    if(!customShort == undefined){
+      console.log('why am i here');
+      if(dataBaseUse.isDuplicate(customShort)){
+        throw "url taken already"
+      }
+      else{
+        dataBaseUse.storeUrlRelation(longUrl, customShort);
+        res.send(homeUrl + "/" + customShort)
+      }
+    }
+    
+    if(dataBaseUse.isExistLong(longUrl)){
+      const existingUrl = dataBaseUse.isExistLong(longUrl)
+      console.log(homeUrl + "/" + existingUrl);
+      res.send(homeUrl + "/" + existingUrl);
+    }
+    else{
     const shortUrl = shortid.generate();
     dataBaseUse.storeUrlRelation(longUrl, shortUrl);
     res.send(homeUrl + "/" + shortUrl);
+    }
   } catch (error) {
     res.send(error)
   }

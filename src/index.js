@@ -12,16 +12,17 @@ const showstatsBtn = document.getElementById('showstatsBtn')
 inputbtn.addEventListener('click', async ()=>{
     try {
         const longUrl = userInput.value;
+        // const shortUrl = undefined
         if(!validator.isURL(longUrl)){
             urloutput.textContent = "Please enter a valid URL";
             return;
         }
-        const data =  await axios.get(`${path}/makeUrl`, {headers: {longurl: longUrl}});
+        const data =  await axios.get(`${path}/makeUrl`, {headers: {longurl: longUrl, shorturl:undefined}});
         userInput.value= "";
         urloutput.textContent = data.data;
         stats.style.visibility = 'visible'
     } catch (error) {
-        console.log(error)
+        urloutput.textContent = error;
     }
     })
 
