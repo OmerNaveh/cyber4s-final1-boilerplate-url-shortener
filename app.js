@@ -6,11 +6,11 @@ const app = express();
 const port = process.env.PORT || 8080;
 const dataBaseUse = new DataBase;
 const shortid = require('shortid'); //generates random id
-const homeUrl = 'http://localhost:8080';
+const homeUrl = 'https://omerurl.herokuapp.com';
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname,'./src')));
+app.use(express.static(path.join(__dirname,'./dist')));
 
 app.use("/", (req,res, next)=>{ //responsible for rerouting using the short url 
   if(req. _parsedUrl.path === "/" || req. _parsedUrl.path === "/makeUrl" || req. _parsedUrl.path === "/status"){next()}
@@ -27,7 +27,7 @@ app.use("/", (req,res, next)=>{ //responsible for rerouting using the short url
 })
 
 app.get("/", (req, res, next) => { //load home page
-  res.sendFile(__dirname + "/src/index.html");
+  res.sendFile(__dirname + "/dist/index.html");
 });
 
 

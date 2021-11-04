@@ -1,5 +1,5 @@
 
-const path = "http://localhost:8080"
+const path = "https://omerurl.herokuapp.com"
 //elements
 const userInput = document.getElementById('userInput')
 const customUrl = document.getElementById('customUrl')
