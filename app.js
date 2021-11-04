@@ -10,7 +10,7 @@ const homeUrl = 'http://localhost:8080';
 
 app.use(cors());
 
-app.use("/public", express.static(`./public`));
+app.use(express.static(path.join(__dirname,'./src')));
 
 app.use("/", (req,res, next)=>{ //responsible for rerouting using the short url 
   if(req. _parsedUrl.path === "/" || req. _parsedUrl.path === "/makeUrl" || req. _parsedUrl.path === "/status"){next()}
