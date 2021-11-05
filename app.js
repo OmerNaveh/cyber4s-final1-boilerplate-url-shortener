@@ -63,7 +63,7 @@ app.get("/makeurl", function(req,res){ //responsible for creating short url and 
 app.get("/status", (req,res)=>{
   try {
     const shortUrl = JSON.stringify(req.headers.shorturl);
-    const slicedUrl= (shortUrl.slice(23,shortUrl.length-1));
+    const slicedUrl= (shortUrl.slice(30,shortUrl.length-1));
     const longurl = dataBaseUse.getLongUrlFromStorage(`/${slicedUrl}`);
     const date = dataBaseUse.getDateFromStorage(slicedUrl);
     const counter = dataBaseUse.getCounterFromStorage(slicedUrl);
