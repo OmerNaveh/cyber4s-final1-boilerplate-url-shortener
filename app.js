@@ -68,10 +68,10 @@ app.get("/status", (req,res)=>{
     const date = dataBaseUse.getDateFromStorage(slicedUrl);
     const counter = dataBaseUse.getCounterFromStorage(slicedUrl);
     const data = {longurl, date , counter};
-    res.send(data);
+    res.send(data , shortUrl);
     
   } catch (error) {
-    res.send(error)
+    res.send(error, "got here")
   }
 })
 
