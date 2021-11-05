@@ -7,6 +7,7 @@ const port = process.env.PORT || 8080;
 const dataBaseUse = new DataBase;
 const shortid = require('shortid'); //generates random id
 const homeUrl = 'https://omerurl.herokuapp.com';
+// const homeUrl = 'http://localhost:8080'
 
 app.use(cors());
 
@@ -63,15 +64,15 @@ app.get("/makeurl", function(req,res){ //responsible for creating short url and 
 app.get("/status", (req,res)=>{
   try {
     const shortUrl = JSON.stringify(req.headers.shorturl);
-    const slicedUrl= (shortUrl.slice(30,shortUrl.length-1));
+    const slicedUrl= (shortUrl.slice(31,shortUrl.length-1));
     const longurl = dataBaseUse.getLongUrlFromStorage(`/${slicedUrl}`);
     const date = dataBaseUse.getDateFromStorage(slicedUrl);
     const counter = dataBaseUse.getCounterFromStorage(slicedUrl);
     const data = {longurl, date , counter};
-    res.send(data , shortUrl);
+    res.send(data);
     
   } catch (error) {
-    res.send(error, "got here")
+    res.send(error)
   }
 })
 
